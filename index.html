@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Java Functions in HTML</title>
+</head>
+<body>
+    <h1>Shuffle Array</h1>
+    <button onclick="shuffleArray()">Shuffle Array</button>
+    <p id="shuffledArray"></p>
+
+    <h1>Roman to Integer</h1>
+    <input type="text" id="romanInput" placeholder="Enter Roman Numeral">
+    <button onclick="convertToInteger()">Convert</button>
+    <p id="integerResult"></p>
+
+    <h1>Pangram Checker</h1>
+    <input type="text" id="pangramInput" placeholder="Enter a Sentence">
+    <button onclick="checkPangram()">Check Pangram</button>
+    <p id="pangramResult"></p>
+
+    <script>
+        function shuffleArray() {
+            fetch("/shuffleArray")
+                .then(response => response.json())
+                .then(data => document.getElementById("shuffledArray").innerHTML = data.join(', '));
+        }
+
+        function convertToInteger() {
+            var romanNumeral = document.getElementById("romanInput").value;
+            fetch("/romanToInteger?romanNumeral=" + romanNumeral)
+                .then(response => response.text())
+                .then(data => document.getElementById("integerResult").innerHTML = "Integer equivalent: " + data);
+        }
+
+        function checkPangram() {
+            var input = document.getElementById("pangramInput").value;
+            fetch("/checkPangram?input=" + input)
+                .then(response => response.text())
+                .then(data => document.getElementById("pangramResult").innerHTML = "Is it a pangram? " + data);
+        }
+    </script>
+</body>
+</html>
